@@ -77,8 +77,10 @@ class _SeatPageState extends State<SeatPage> {
               showCupertinoDialog(
                 context: context,
                 builder: (_) => CupertinoAlertDialog(
-                  title: const Text('예매 확인'),
-                  content: const Text('예매를 진행하시겠습니까?'),
+                  title: Text('예매 확인'),
+                  content: Text(
+                    '예매를 진행하시겠습니까?\n선택한 좌석: ${selectedSeats.join(', ')}',
+                  ),
                   actions: [
                     CupertinoDialogAction(
                       child: const Text('취소'),
@@ -87,7 +89,6 @@ class _SeatPageState extends State<SeatPage> {
                     CupertinoDialogAction(
                       child: const Text('확인'),
                       onPressed: () {
-                        Navigator.pop(context);
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
