@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SeatPage extends StatelessWidget {
+class SeatPage extends StatefulWidget {
   final String departureStation;
   final String arrivalStation;
 
@@ -9,6 +9,13 @@ class SeatPage extends StatelessWidget {
     required this.departureStation,
     required this.arrivalStation,
   });
+
+  @override
+  State<SeatPage> createState() => _SeatPageState();
+}
+
+class _SeatPageState extends State<SeatPage> {
+  Set<String> selectedSeats = {}; //선택한 좌석 저장
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +46,9 @@ class SeatPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  seatBox(),
+                  seatBox('${index + 1}A'),
                   SizedBox(width: 4),
-                  seatBox(),
+                  seatBox('${index + 1}B'),
                   SizedBox(width: 4),
                   //행번호 컨테이너
                   Container(
@@ -51,10 +58,10 @@ class SeatPage extends StatelessWidget {
                     child: Text('${index + 1}', style: TextStyle(fontSize: 18)),
                   ),
 
-                  seatBox(),
+                  seatBox('${index + 1}C'),
                   SizedBox(width: 4),
 
-                  seatBox(),
+                  seatBox('${index + 1}D'),
 
                   // ...['A', 'B', 'C', 'D'].map((seat) => seatBox()).toList(),
                 ],
@@ -76,16 +83,29 @@ class SeatPage extends StatelessWidget {
       child: Text(label, style: TextStyle(fontSize: 18)),
     );
   }
-}
 
-Widget seatBox() {
-  return Container(
-    width: 50,
-    height: 50,
-    margin: EdgeInsets.symmetric(horizontal: 4), // 좌석 사이 가로 간격
-    decoration: BoxDecoration(
-      color: Colors.grey[300],
-      borderRadius: BorderRadius.circular(8),
-    ),
-  );
+  Widget seatBox(String seatId) {
+    final isSelected = selectedSeats.contains(seatId);
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (isSelected) {
+            selectedSeats.remove(seatId);
+          } else {
+            selectedSeats.add(seatId);
+          }
+        });
+      },
+      child: Container(
+        width: 50,
+        height: 50,
+        margin: EdgeInsets.symmetric(horizontal: 4), // 좌석 사이 가로 간격
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.purple : Colors.grey[300],
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
 }
