@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SeatPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class SeatPage extends StatefulWidget {
 }
 
 class _SeatPageState extends State<SeatPage> {
-  Set<String> selectedSeats = {}; //선택한 좌석 저장
+  Set<String> selectedSeats = {}; // 선택한 좌석 저장
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,6 @@ class _SeatPageState extends State<SeatPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
-          // ABCD 레이블
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -35,52 +35,94 @@ class _SeatPageState extends State<SeatPage> {
               'D',
             ].map((e) => seatLabel(e)).toList(),
           ),
-
           const SizedBox(height: 20),
-
-          // 좌석 행 20개 생성
-          // 여기에 List.generate(20, (index) { ... })
           ...List.generate(20, (index) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   seatBox('${index + 1}A'),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   seatBox('${index + 1}B'),
-                  SizedBox(width: 4),
-                  //행번호 컨테이너
+                  const SizedBox(width: 4),
                   Container(
                     width: 50,
                     height: 50,
                     alignment: Alignment.center,
-                    child: Text('${index + 1}', style: TextStyle(fontSize: 18)),
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(fontSize: 18),
+                    ),
                   ),
-
+                  const SizedBox(width: 4),
                   seatBox('${index + 1}C'),
-                  SizedBox(width: 4),
-
+                  const SizedBox(width: 4),
                   seatBox('${index + 1}D'),
-
-                  // ...['A', 'B', 'C', 'D'].map((seat) => seatBox()).toList(),
                 ],
               ),
             );
           }),
         ],
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SizedBox(
+          width: double.infinity,
+          height: 60,
+          child: ElevatedButton(
+            onPressed: () {
+              if (selectedSeats.isEmpty) return;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (_) => CupertinoAlertDialog(
+                  title: const Text('예매 확인'),
+                  content: const Text('예매를 진행하시겠습니까?'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: const Text('취소'),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    CupertinoDialogAction(
+                      child: const Text('확인'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              '예매 하기',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
-  // ABCD 레이블을 표시하는 위젯
   Widget seatLabel(String label) {
     return Container(
       width: 50,
       height: 50,
       alignment: Alignment.center,
-      margin: EdgeInsets.symmetric(horizontal: 4),
-      child: Text(label, style: TextStyle(fontSize: 18)),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      child: Text(label, style: const TextStyle(fontSize: 18)),
     );
   }
 
@@ -100,7 +142,7 @@ class _SeatPageState extends State<SeatPage> {
       child: Container(
         width: 50,
         height: 50,
-        margin: EdgeInsets.symmetric(horizontal: 4), // 좌석 사이 가로 간격
+        margin: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: isSelected ? Colors.purple : Colors.grey[300],
           borderRadius: BorderRadius.circular(8),
