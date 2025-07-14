@@ -26,6 +26,7 @@ class _SeatPageState extends State<SeatPage> {
         padding: EdgeInsets.symmetric(vertical: 20),
         children: [
           Row(
+            //출발역 도착역 안내
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
@@ -54,6 +55,43 @@ class _SeatPageState extends State<SeatPage> {
             ],
           ),
           SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 선택됨
+              Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Text('선택됨'),
+                ],
+              ),
+              const SizedBox(width: 20),
+              // 선택안됨
+              Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Text('선택안됨'),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
