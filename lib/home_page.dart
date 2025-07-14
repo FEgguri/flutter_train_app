@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_train_app/seat_page.dart';
 import 'package:flutter_train_app/station_list_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
@@ -16,6 +15,23 @@ class _HomePageState extends State<HomePage> {
   String? arrivalStation;
   @override
   Widget build(BuildContext context) {
+    dialog(String dialog) {
+      //팝업
+      showCupertinoDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text('오류'),
+          content: Text(dialog),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('확인'),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
       backgroundColor: Colors.grey[200],
@@ -43,7 +59,10 @@ class _HomePageState extends State<HomePage> {
                             final result = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => StationListPage(title: '출발역'),
+                                builder: (_) => StationListPage(
+                                  title: '출발역',
+                                  sameStation: arrivalStation,
+                                ),
                               ),
                             );
                             if (result != null) {
@@ -80,7 +99,10 @@ class _HomePageState extends State<HomePage> {
                             final result = await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => StationListPage(title: '도착역'),
+                                builder: (_) => StationListPage(
+                                  title: '도착역',
+                                  sameStation: departureStation,
+                                ),
                               ),
                             );
                             if (result != null) {
@@ -130,34 +152,12 @@ class _HomePageState extends State<HomePage> {
                         );
                       } else if (departureStation == null &&
                           arrivalStation != null) {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (_) => CupertinoAlertDialog(
-                            title: Text('오류'),
-                            content: Text('출발역을 선택해주세요'),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text('확인'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else if (departureStation == null &&
+                        dialog('출발역을 선택해주세요');
+                      } else if (departureStation != null &&
                           arrivalStation == null) {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (_) => CupertinoAlertDialog(
-                            title: Text('오류'),
-                            content: Text('도착역을 선택해주세요'),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text('확인'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ],
-                          ),
-                        );
+                        dialog('도착역을 선택해주세요');
+                      } else {
+                        dialog('출발역,도착역을 선택해주세요');
                       }
                     },
                     style: ElevatedButton.styleFrom(

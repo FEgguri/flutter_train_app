@@ -1,13 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StationListPage extends StatelessWidget {
   final String title; //appbar에 표시할 타이틀 이름
+  final String? sameStation;
 
-  StationListPage({super.key, required this.title});
+  const StationListPage({
+    super.key,
+    required this.title,
+    required this.sameStation,
+  });
 
   @override
   Widget build(BuildContext context) {
-    List<String> stations = ['한국', '일본', '중국', '우리집', '독도'];
+    List<String> stations = [
+      "수서",
+      "동탄",
+      "평택지제",
+      "천안아산",
+      "오송",
+      "대전",
+      "김천구미",
+      "동대구",
+      "경주",
+      "울산",
+      "부산",
+    ];
+    stations.remove(sameStation); //중복된역제거
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: ListView.builder(
@@ -15,7 +34,25 @@ class StationListPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.pop(context, stations[index]); // 선택한 역 반환
+              if (sameStation != stations[index]) {
+                Navigator.pop(context, stations[index]);
+              } else {
+                showCupertinoDialog(
+                  //중복된 역이 혹시 나왔을때 검증
+                  context: context,
+                  builder: (_) => CupertinoAlertDialog(
+                    title: Text('오류'),
+                    content: Text('중복된 역입니다. 다른 역을 선택해주세요'),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: Text('확인'),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              // 선택한 역 반환
             },
             child: Container(
               height: 50,
