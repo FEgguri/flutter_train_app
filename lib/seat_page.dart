@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class SeatPage extends StatefulWidget {
   final String departureStation;
   final String arrivalStation;
+  final Set<String> bookedSeats;
 
   const SeatPage({
     super.key,
     required this.departureStation,
     required this.arrivalStation,
+    required this.bookedSeats,
   });
 
   @override
@@ -16,7 +18,15 @@ class SeatPage extends StatefulWidget {
 }
 
 class _SeatPageState extends State<SeatPage> {
+  late Set<String> bookedSeats;
+  @override
+  void initState() {
+    super.initState();
+    bookedSeats = widget.bookedSeats;
+  }
+
   Set<String> selectedSeats = {};
+  //Set<String> bookedSeats = {};
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +154,7 @@ class _SeatPageState extends State<SeatPage> {
                 builder: (_) => CupertinoAlertDialog(
                   title: Text('예매 확인'),
                   content: Text(
-                    '예매를 진행하시겠습니까?\n선택한 좌석: ${selectedSeats.join(', ')}',
+                    '예매를 진행하시겠습니까? \n 선택한 좌석: ${selectedSeats.join(', ')}',
                   ),
                   actions: [
                     CupertinoDialogAction(
@@ -155,7 +165,7 @@ class _SeatPageState extends State<SeatPage> {
                       child: Text('확인'),
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pop(context);
+                        Navigator.pop(context, selectedSeats);
                       },
                     ),
                   ],
@@ -193,27 +203,41 @@ class _SeatPageState extends State<SeatPage> {
   }
 
   Widget seatBox(String seatId) {
+    final isBooked = bookedSeats.contains(seatId);
     final isSelected = selectedSeats.contains(seatId);
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (isSelected) {
-            selectedSeats.remove(seatId);
-          } else {
-            selectedSeats.add(seatId);
-          }
-        });
-      },
-      child: Container(
+    if (isBooked) {
+      //이미 예약된 좌석일때
+      return Container(
         width: 50,
         height: 50,
         margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.purple : Colors.grey[300],
+          color: Colors.red,
           borderRadius: BorderRadius.circular(8),
         ),
-      ),
-    );
+      );
+    } else {
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            if (isSelected) {
+              selectedSeats.remove(seatId);
+            } else {
+              selectedSeats.add(seatId);
+            }
+          });
+        },
+        child: Container(
+          width: 50,
+          height: 50,
+          margin: EdgeInsets.symmetric(horizontal: 4),
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.purple : Colors.grey[300],
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      );
+    }
   }
 }

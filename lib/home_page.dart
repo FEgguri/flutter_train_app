@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? departureStation;
   String? arrivalStation;
+  Set<String> bookedSeats = {};
   @override
   Widget build(BuildContext context) {
     dialog(String dialog) {
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -138,18 +139,24 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // 출발역 도착역이 모두 선택됐을때 이동
                       if (departureStation != null && arrivalStation != null) {
-                        Navigator.push(
+                        final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (_) => SeatPage(
                               departureStation: departureStation!,
                               arrivalStation: arrivalStation!,
+                              bookedSeats: bookedSeats,
                             ),
                           ),
                         );
+                        if (result != null) {
+                          setState(() {
+                            bookedSeats.addAll(result);
+                          });
+                        }
                       } else if (departureStation == null &&
                           arrivalStation != null) {
                         dialog('출발역을 선택해주세요');
@@ -166,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       '좌석 선택',
                       style: TextStyle(
                         color: Colors.white,
