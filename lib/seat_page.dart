@@ -16,15 +16,45 @@ class SeatPage extends StatefulWidget {
 }
 
 class _SeatPageState extends State<SeatPage> {
-  Set<String> selectedSeats = {}; // 선택한 좌석 저장
+  Set<String> selectedSeats = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('좌석 선택')),
+      appBar: AppBar(title: Text('좌석 선택'), centerTitle: true),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(vertical: 20),
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.departureStation,
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 8),
+              Icon(
+                Icons.arrow_circle_right_outlined,
+                size: 30,
+                color: Colors.purple,
+              ),
+              SizedBox(width: 8),
+              Text(
+                widget.arrivalStation,
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
