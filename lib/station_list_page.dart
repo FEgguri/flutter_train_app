@@ -7,7 +7,7 @@ class StationListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> stations = ['범골', '회룡', '경기도청북부청사', '의정부역', '의정부시청'];
+    List<String> stations = ['한국', '일본', '중국', '우리집', '독도'];
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: ListView.builder(

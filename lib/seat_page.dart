@@ -69,11 +69,11 @@ class _SeatPageState extends State<SeatPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  const Text('선택됨'),
+                  SizedBox(width: 4),
+                  Text('선택됨'),
                 ],
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               // 선택안됨
               Row(
                 children: [
@@ -85,13 +85,13 @@ class _SeatPageState extends State<SeatPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  const SizedBox(width: 4),
-                  const Text('선택안됨'),
+                  SizedBox(width: 4),
+                  Text('선택안됨'),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,29 +103,26 @@ class _SeatPageState extends State<SeatPage> {
               'D',
             ].map((e) => seatLabel(e)).toList(),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           ...List.generate(20, (index) {
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   seatBox('${index + 1}A'),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4),
                   seatBox('${index + 1}B'),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4),
                   Container(
                     width: 50,
                     height: 50,
                     alignment: Alignment.center,
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(fontSize: 18),
-                    ),
+                    child: Text('${index + 1}', style: TextStyle(fontSize: 18)),
                   ),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4),
                   seatBox('${index + 1}C'),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4),
                   seatBox('${index + 1}D'),
                 ],
               ),
@@ -134,7 +131,7 @@ class _SeatPageState extends State<SeatPage> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         child: SizedBox(
           width: double.infinity,
           height: 60,
@@ -151,11 +148,11 @@ class _SeatPageState extends State<SeatPage> {
                   ),
                   actions: [
                     CupertinoDialogAction(
-                      child: const Text('취소'),
+                      child: Text('취소'),
                       onPressed: () => Navigator.pop(context),
                     ),
                     CupertinoDialogAction(
-                      child: const Text('확인'),
+                      child: Text('확인'),
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -190,8 +187,8 @@ class _SeatPageState extends State<SeatPage> {
       width: 50,
       height: 50,
       alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      child: Text(label, style: const TextStyle(fontSize: 18)),
+      margin: EdgeInsets.symmetric(horizontal: 4),
+      child: Text(label, style: TextStyle(fontSize: 18)),
     );
   }
 
@@ -211,7 +208,7 @@ class _SeatPageState extends State<SeatPage> {
       child: Container(
         width: 50,
         height: 50,
-        margin: const EdgeInsets.symmetric(horizontal: 4),
+        margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: isSelected ? Colors.purple : Colors.grey[300],
           borderRadius: BorderRadius.circular(8),
