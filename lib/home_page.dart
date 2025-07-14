@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_train_app/seat_page.dart';
@@ -125,6 +126,36 @@ class _HomePageState extends State<HomePage> {
                               departureStation: departureStation!,
                               arrivalStation: arrivalStation!,
                             ),
+                          ),
+                        );
+                      } else if (departureStation == null &&
+                          arrivalStation != null) {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (_) => CupertinoAlertDialog(
+                            title: Text('오류'),
+                            content: Text('출발역을 선택해주세요'),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text('확인'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (departureStation == null &&
+                          arrivalStation == null) {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (_) => CupertinoAlertDialog(
+                            title: Text('오류'),
+                            content: Text('도착역을 선택해주세요'),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text('확인'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
                           ),
                         );
                       }

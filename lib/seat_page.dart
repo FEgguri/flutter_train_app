@@ -168,7 +168,7 @@ class _SeatPageState extends State<SeatPage> {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            child: const Text(
+            child: Text(
               '예매 하기',
               style: TextStyle(
                 color: Colors.white,
