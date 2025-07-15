@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 
 void dialog(
-  BuildContext context,
-  String title,
-  String dialog,
-  List<Widget> action,
-  // CupertinoDialogAction cupertinoDialogAction,
+  //파라미터
+  BuildContext context, //위젯 위치
+  String title, //제목
+  String dialog, //메세지
+  List<Widget> action, //버튼들
 ) {
-  //팝업생성메서드
-
   showCupertinoDialog(
-    context: context,
+    context: context, //위젯 위치
     builder: (_) => CupertinoAlertDialog(
       title: Text(title),
       content: Text(dialog),

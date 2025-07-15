@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/utils/show_dialog.dart';
 
 class StationListPage extends StatelessWidget {
   final String title; //appbar에 표시할 타이틀 이름
@@ -37,20 +38,26 @@ class StationListPage extends StatelessWidget {
               if (sameStation != stations[index]) {
                 Navigator.pop(context, stations[index]);
               } else {
-                showCupertinoDialog(
-                  //중복된 역이 혹시 나왔을때 검증
-                  context: context,
-                  builder: (_) => CupertinoAlertDialog(
-                    title: Text('오류'),
-                    content: Text('중복된 역입니다. 다른 역을 선택해주세요'),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: Text('확인'),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
+                dialog(context, '오류', '중복된 역입니다. 다른 역을 선택해주세요', [
+                  CupertinoDialogAction(
+                    child: Text('확인'),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                );
+                ]);
+                // showCupertinoDialog(
+                //   //중복된 역이 혹시 나왔을때 검증
+                //   context: context,
+                //   builder: (_) => CupertinoAlertDialog(
+                //     title: Text('오류'),
+                //     content: Text('중복된 역입니다. 다른 역을 선택해주세요'),
+                //     actions: [
+                //       CupertinoDialogAction(
+                //         child: Text('확인'),
+                //         onPressed: () => Navigator.pop(context),
+                //       ),
+                //     ],
+                //   ),
+                // );
               }
               // 선택한 역 반환
             },
