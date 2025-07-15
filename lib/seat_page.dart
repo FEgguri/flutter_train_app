@@ -22,7 +22,7 @@ class _SeatPageState extends State<SeatPage> {
   @override
   void initState() {
     super.initState();
-    bookedSeats = widget.bookedSeats;
+    bookedSeats = widget.bookedSeats; //부모위젯이 받은 bookedSeats를 받아 할당
   }
 
   Set<String> selectedSeats = {};
