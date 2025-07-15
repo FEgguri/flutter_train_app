@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
       ), //ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
       themeMode: ThemeMode.dark,
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }

@@ -11,13 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? departureStation;
-  String? arrivalStation;
-  Set<String> bookedSeats = {};
+  String? departureStation; //출발역
+  String? arrivalStation; //도착역
+  Set<String> bookedSeats = {}; //예약된좌석
   @override
   Widget build(BuildContext context) {
     dialog(String dialog) {
-      //팝업
+      //팝업생성메서드
+
       showCupertinoDialog(
         context: context,
         builder: (_) => CupertinoAlertDialog(
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
           content: Text(dialog),
           actions: [
             CupertinoDialogAction(
+              //확인버튼을 누르면 이전화면으로
               child: Text('확인'),
               onPressed: () => Navigator.pop(context),
             ),
@@ -57,18 +59,26 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () async {
+                            // 사용자가 이 위젯을 탭했을 때 실행되는 비동기 함수 시작
                             final result = await Navigator.push(
-                              context,
+                              // Navigator를 통해 새로운 페이지로 이동하면서, 해당 페이지에서 결과를 받아올 수 있음
+                              context, // await는 Navigator.push가 새 페이지에서 pop 될 때까지 기다림
+                              // 즉, StationListPage에서 Navigator.pop(context, 선택한역) 했을 때 값을 받아오는 부분
                               MaterialPageRoute(
+                                // MaterialPageRoute는 새 페이지를 애니메이션과 함께 보여주도록 하는 라우트
                                 builder: (_) => StationListPage(
-                                  title: '출발역',
+                                  title: '출발역', // 새 페이지에 전달할 매개변수들
                                   sameStation: arrivalStation,
                                 ),
                               ),
                             );
+
                             if (result != null) {
+                              // 만약 결과가 null이 아니라면(즉, 사용자가 역을 선택했다면)
                               setState(() {
-                                departureStation = result;
+                                // 상태를 갱신해서 UI를 다시 그림
+                                departureStation =
+                                    result; // 선택된 역을 departureStation에 저장
                               });
                             }
                           },

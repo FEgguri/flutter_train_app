@@ -219,11 +219,14 @@ class _SeatPageState extends State<SeatPage> {
       );
     } else {
       return GestureDetector(
+        //예약가능한좌석일때
         onTap: () {
           setState(() {
             if (isSelected) {
+              //선택했던 좌석이면 지우고
               selectedSeats.remove(seatId);
             } else {
+              //아니면 추가
               selectedSeats.add(seatId);
             }
           });
