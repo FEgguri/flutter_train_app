@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/utils/show_dialog.dart';
 
 class SeatPage extends StatefulWidget {
   final String departureStation;
@@ -115,6 +116,7 @@ class _SeatPageState extends State<SeatPage> {
           ),
           SizedBox(height: 20),
           ...List.generate(20, (index) {
+            //20번 반복
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Row(
@@ -148,29 +150,46 @@ class _SeatPageState extends State<SeatPage> {
           child: ElevatedButton(
             onPressed: () {
               if (selectedSeats.isEmpty) return;
-
-              showCupertinoDialog(
-                context: context,
-                builder: (_) => CupertinoAlertDialog(
-                  title: Text('예매 확인'),
-                  content: Text(
-                    '예매를 진행하시겠습니까? \n 선택한 좌석: ${selectedSeats.join(', ')}',
+              dialog(
+                context,
+                '예매 확인',
+                '예매를 진행하시겠습니까? \n 선택한 좌석: ${selectedSeats.join(', ')}',
+                [
+                  CupertinoDialogAction(
+                    child: Text('취소'),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: Text('취소'),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    CupertinoDialogAction(
-                      child: Text('확인'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context, selectedSeats);
-                      },
-                    ),
-                  ],
-                ),
+                  CupertinoDialogAction(
+                    child: Text('확인'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context, selectedSeats);
+                    },
+                  ),
+                ],
               );
+              // showCupertinoDialog(
+              //   context: context,
+              //   builder: (_) => CupertinoAlertDialog(
+              //     title: Text('예매 확인'),
+              //     content: Text(
+              //       '예매를 진행하시겠습니까? \n 선택한 좌석: ${selectedSeats.join(', ')}',
+              //     ),
+              //     actions: [
+              //       CupertinoDialogAction(
+              //         child: Text('취소'),
+              //         onPressed: () => Navigator.pop(context),
+              //       ),
+              //       CupertinoDialogAction(
+              //         child: Text('확인'),
+              //         onPressed: () {
+              //           Navigator.pop(context);
+              //           Navigator.pop(context, selectedSeats);
+              //         },
+              //       ),
+              //     ],
+              //   ),
+              // );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.purple,

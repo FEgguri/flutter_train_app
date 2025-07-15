@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_train_app/seat_page.dart';
-import 'package:flutter_train_app/station_list_page.dart';
+import 'package:flutter_train_app/page/seat_page.dart';
+import 'package:flutter_train_app/page/station_list_page.dart';
+import 'package:flutter_train_app/utils/show_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,25 +17,6 @@ class _HomePageState extends State<HomePage> {
   Set<String> bookedSeats = {}; //예약된좌석
   @override
   Widget build(BuildContext context) {
-    dialog(String dialog) {
-      //팝업생성메서드
-
-      showCupertinoDialog(
-        context: context,
-        builder: (_) => CupertinoAlertDialog(
-          title: Text('오류'),
-          content: Text(dialog),
-          actions: [
-            CupertinoDialogAction(
-              //확인버튼을 누르면 이전화면으로
-              child: Text('확인'),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -169,12 +151,30 @@ class _HomePageState extends State<HomePage> {
                         }
                       } else if (departureStation == null &&
                           arrivalStation != null) {
-                        dialog('출발역을 선택해주세요');
+                        dialog(context, '오류', '출발역을 선택해주세요', [
+                          CupertinoDialogAction(
+                            //확인버튼을 누르면 이전화면으로
+                            child: Text('확인'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ]);
                       } else if (departureStation != null &&
                           arrivalStation == null) {
-                        dialog('도착역을 선택해주세요');
+                        dialog(context, '오류', '도착역을 선택해주세요', [
+                          CupertinoDialogAction(
+                            //확인버튼을 누르면 이전화면으로
+                            child: Text('확인'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ]);
                       } else {
-                        dialog('출발역,도착역을 선택해주세요');
+                        dialog(context, '오류', '출발역,도착역을 선택해주세요', [
+                          CupertinoDialogAction(
+                            //확인버튼을 누르면 이전화면으로
+                            child: Text('확인'),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ]);
                       }
                     },
                     style: ElevatedButton.styleFrom(
