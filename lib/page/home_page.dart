@@ -77,7 +77,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Text(
                                 departureStation ?? '선택',
-                                style: TextStyle(fontSize: 40),
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.black,
+                                ),
                               ),
                             ],
                           ),
@@ -117,7 +120,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Text(
                                 arrivalStation ?? '선택',
-                                style: TextStyle(fontSize: 40),
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  color: Colors.black,
+                                ),
                               ),
                             ],
                           ),

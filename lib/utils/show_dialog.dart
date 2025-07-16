@@ -8,7 +8,7 @@ void dialog(
   List<Widget> action, //버튼들
 ) {
   showCupertinoDialog(
-    context: context, //위젯 위치
+    context: context,
     builder: (_) => CupertinoAlertDialog(
       title: Text(title),
       content: Text(dialog),

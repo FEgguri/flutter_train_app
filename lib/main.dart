@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/page/home_page.dart';
+import 'package:flutter_train_app/style/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '기차 예매',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.grey[200],
-        // 기타 라이트 테마 설정
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-      ), //ThemeData(scaffoldBackgroundColor: Colors.grey[200]),
       themeMode: ThemeMode.dark,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
