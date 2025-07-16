@@ -1,4 +1,4 @@
-# Flutter Train Ticket Reservation App
+# 기차 예매 앱
 
 ## 📌 소개
 이 앱은 Flutter로 만든 기차 예매 앱입니다. 사용자는 출발역과 도착역을 선택한 후 좌석을 예매할 수 있습니다.
