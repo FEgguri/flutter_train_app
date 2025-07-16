@@ -16,13 +16,23 @@
 
 ## 📁 폴더 구조
 lib/
+
 ├─ main.dart
+
 ├─ page/
+
 │ ├─ home_page.dart
+
 │ ├─ seat_page.dart
+
 │ └─ station_list_page.dart
+
 ├─ utils/
+
 │ └─ show_dialog.dart
+
 data/
+
 └─ station.json
+
 
